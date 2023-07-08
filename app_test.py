@@ -54,8 +54,3 @@ col3_2.subheader('+/-')
 if 'away_points' in st.session_state:
     for player, count in st.session_state.away_points.items():
         col3_2.write(f"{player}: {count}")
-
-st.write(st.session_state.home_points)
-st.write(st.session_state.away_points)
-
-
