@@ -1,4 +1,6 @@
 import streamlit as st
+import pandas as pd
+from datetime import date
 
 st.title("Basketball Plus-Minus Tracker")
 # Player selection
@@ -24,6 +26,10 @@ if col2.button('Add Point Home'):
         st.session_state.home_points[player] += 1
     for player in away_team:
         st.session_state.away_points[player] -= 1
+    home_df = pd.DataFrame(list(st.session_state['home_points'].items()), columns=['Player', 'Points'])
+    home_df.to_csv(str(date.today())+'TMU_plusminus.csv', index=False)
+    away_df = pd.DataFrame(list(st.session_state['away_points'].items()), columns=['Player', 'Points'])
+    away_df.to_csv(str(date.today())+'Away_plusminus.csv', index=False)
 
 if col2.button('Add Point Away'):
     st.session_state.away_points = st.session_state.get('away_points', {player: 0 for player in away_team})  # Retrieve session state
@@ -31,6 +37,10 @@ if col2.button('Add Point Away'):
         st.session_state.away_points[player] += 1
     for player in home_team:
         st.session_state.home_points[player] -= 1
+    home_df = pd.DataFrame(list(st.session_state['home_points'].items()), columns=['Player', 'Points'])
+    home_df.to_csv(str(date.today())+'TMU_plusminus.csv', index=False)
+    away_df = pd.DataFrame(list(st.session_state['away_points'].items()), columns=['Player', 'Points'])
+    away_df.to_csv(str(date.today())+'Away_plusminus.csv', index=False)
 
 st.session_state.home_points = st.session_state.get('home_points', {player: 0 for player in homeplayers})
 st.session_state.away_points = st.session_state.get('away_points', {player: 0 for player in awayplayers})
