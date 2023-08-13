@@ -9,14 +9,14 @@ import streamlit_toggle as tog
 st.markdown("<h1 style='text-align: center; color: black;'>Plus-Minus Tracker</h1>", unsafe_allow_html=True)
 top_col1,top_col2,top_col3,top_col4 = st.columns([1,1,1,1])
 # Player selection
-homeplayers = ["Haley Fedick", "Zoe Idahosa", "Jayme Foreman", "Sarai Bailey", "Kaillie Hall",'Kait Nichols','Lauryn Meek','Jamilah Christian','Jess Keripe','Player10']
+homeplayers = ["#3: Hailey Franco-Deryck", "#6: Haley Fedick", "#8: Zoe Idahosa", "#10: Jayme Foreman", "#12: Corryn Parker",'#13: Alex Pino','#14: Kaillie Hall','#15: Kait Nichols','#17: Catrina Garvey','#21: Hannah Watson','#22: Lauryn Meek','#23: Tiya Misir','#24: Jamilah Christian','#25: Jessica Keripe']
 col1,col2,col3 = st.columns([1,1,1])
 col1.subheader('TMU')
 # Home team selection
 home_team = [player for player in homeplayers if col1.checkbox(f"{player}")]
 
 # Player selection
-awayplayers = ["Player 1", "Player 2", "Player 3", "Player 4", "Player 5",'Player6','Player7','Player8','Player9','Player10']
+awayplayers = ["Player 1", "Player 2", "Player 3", "Player 4", "Player 5",'Player6','Player7','Player8','Player9','Player10','Player11','Player12','Player13','Player14']
 col2.subheader('Away')
 # Home team selection
 away_team = [player for player in awayplayers if col2.checkbox(f"{player}",key=player)]
@@ -48,7 +48,7 @@ if len(home_team)==5 and len(away_team)==5:
         for player in away_team:
             st.session_state.away_points[player] -= 1
         
-        new_row_data = [home_team[0],home_team[1],home_team[2],home_team[3],home_team[4],1]
+        new_row_data = [date.today(),home_team[0],home_team[1],home_team[2],home_team[3],home_team[4],1]
         with open('lineup_plusminus.csv', 'a') as f:
             writer = csv.writer(f)
             writer.writerow(new_row_data)
@@ -64,7 +64,7 @@ if len(home_team)==5 and len(away_team)==5:
         for player in home_team:
             st.session_state.home_points[player] -= 1
         
-        new_row_data = [home_team[0],home_team[1],home_team[2],home_team[3],home_team[4],-1]
+        new_row_data = [date.today(),home_team[0],home_team[1],home_team[2],home_team[3],home_team[4],-1]
         with open('lineup_plusminus.csv', 'a') as f:
             writer = csv.writer(f)
             writer.writerow(new_row_data)
@@ -91,8 +91,18 @@ with top_col4:
 if table_switch==True:
     col3.subheader('TMU')
     if 'home_points' in st.session_state:
-        col3.dataframe(st.session_state.home_points.items(),hide_index=True,column_config={'0':'Player','1':'+/-'},use_container_width=True)
+        height = int(35.2*(len(homeplayers)+1))
+        col3.dataframe(st.session_state.home_points.items(),hide_index=True,column_config={'0':'Player','1':'+/-'},use_container_width=True,height=height)
 else:
     col3.subheader('Away')
     if 'away_points' in st.session_state:
-        col3.dataframe(st.session_state.away_points.items(),hide_index=True,column_config={'0':'Player','1':'+/-'},use_container_width=True)
+        height = int(35.2*(len(awayplayers)+1))
+        col3.dataframe(st.session_state.away_points.items(),hide_index=True,column_config={'0':'Player','1':'+/-'},use_container_width=True,height=height)
+
+st.text('')
+if st.button('Show/Update Lineup +/-'):
+    lineup_vals = pd.DataFrame(pd.read_csv('lineup_plusminus.csv',header=None,names=["Date", "P1", "P2", "P3","P4","P5","Points"]))
+    lineup_vals = lineup_vals[lineup_vals['Date']==str(date.today())]
+    lineup_vals = lineup_vals.groupby(['P1','P2','P3','P4','P5'])['Points'].sum()
+    lineup_vals = lineup_vals.sort_values(ascending=False)
+    st.dataframe(lineup_vals,width=1000)
