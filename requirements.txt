@@ -1,1 +1,4 @@
+numpy==1.25.2
+pandas==2.0.3
+streamlit==1.25.0
 streamlit_toggle==0.1.3
