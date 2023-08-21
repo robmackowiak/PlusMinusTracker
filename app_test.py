@@ -100,6 +100,11 @@ if st.button('Show/Update Lineup +/-'):
     lineup_vals = lineup_vals.sort_values(ascending=False)
     st.dataframe(lineup_vals,width=1000)
 
+st.text('')
+st.text('')
+st.text('')
+st.text('')
+st.text('')
 if st.button('Reset Values'):
     os.remove('lineup_plusminus.csv')
     os.remove(str(date.today())+'TMU_plusminus.csv')
