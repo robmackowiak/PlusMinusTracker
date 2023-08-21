@@ -105,7 +105,12 @@ st.text('')
 st.text('')
 st.text('')
 st.text('')
-if st.button('Reset Values'):
-    os.remove('lineup_plusminus.csv')
-    os.remove(str(date.today())+'TMU_plusminus.csv')
-    os.remove(str(date.today())+'Away_plusminus.csv')
+visibility = False
+if st.checkbox('Allow Reset'):
+    visibility = True
+
+if visibility == True:
+    if st.button('Reset Values'):
+        os.remove('lineup_plusminus.csv')
+        os.remove(str(date.today())+'TMU_plusminus.csv')
+        os.remove(str(date.today())+'Away_plusminus.csv')
