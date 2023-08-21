@@ -4,7 +4,6 @@ from datetime import date
 import numpy as np
 import csv
 import os.path
-#import streamlit_toggle as tog
 
 st.markdown("<h1 style='text-align: center; color: black;'>Plus-Minus Tracker</h1>", unsafe_allow_html=True)
 top_col1,top_col2,top_col3,top_col4 = st.columns([1,1,1,1])
@@ -88,11 +87,10 @@ else:
 #                     track_color="#11567f"
 #                     )
 
-# if table_switch==True:
-#     col3.subheader('TMU')
-#     if 'home_points' in st.session_state:
-#         height = int(35.2*(len(homeplayers)+1))
-#         col3.dataframe(st.session_state.home_points.items(),hide_index=True,column_config={'0':'Player','1':'+/-'},use_container_width=True,height=height)
+col3.subheader('TMU')
+if 'home_points' in st.session_state:
+    height = int(35.2*(len(homeplayers)+1))
+    col3.dataframe(st.session_state.home_points.items(),hide_index=True,column_config={'0':'Player','1':'+/-'},use_container_width=True,height=height)
 # else:
 #     col3.subheader('Away')
 #     if 'away_points' in st.session_state:
