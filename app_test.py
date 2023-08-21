@@ -4,6 +4,7 @@ from datetime import date
 import numpy as np
 import csv
 import os.path
+import os
 
 st.markdown("<h1 style='text-align: center; color: black;'>Plus-Minus Tracker</h1>", unsafe_allow_html=True)
 top_col1,top_col2,top_col3,top_col4 = st.columns([1,1,1,1])
@@ -98,3 +99,8 @@ if st.button('Show/Update Lineup +/-'):
     lineup_vals = lineup_vals.groupby(['P1','P2','P3','P4','P5'])['Points'].sum()
     lineup_vals = lineup_vals.sort_values(ascending=False)
     st.dataframe(lineup_vals,width=1000)
+
+if st.button('Reset Values'):
+    os.remove('lineup_plusminus.csv')
+    os.remove(str(date.today())+'TMU_plusminus.csv')
+    os.remove(str(date.today())+'Away_plusminus.csv')
