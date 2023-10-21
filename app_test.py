@@ -9,14 +9,14 @@ import os
 st.markdown("<h1 style='text-align: center; color: black;'>Plus-Minus Tracker</h1>", unsafe_allow_html=True)
 top_col1,top_col2,top_col3,top_col4 = st.columns([1,1,1,1])
 # Player selection
-homeplayers = ["#3: Hailey Franco-Deryck", "#6: Haley Fedick", "#8: Zoe Idahosa", "#10: Jayme Foreman", "#12: Corryn Parker",'#13: Alex Pino','#14: Kaillie Hall','#15: Kait Nichols','#17: Catrina Garvey','#21: Hannah Watson','#22: Lauryn Meek','#23: Tiya Misir','#24: Jamilah Christian','#25: Jessica Keripe']
+homeplayers = ["#3: Hailey Franco-Deryck", "#6: Haley Fedick", "#8: Zoe Idahosa", "#9: Sarai Bailey", "#10: Jayme Foreman", "#12: Hannah Watson",'#13: Alex Pino','#14: Kaillie Hall','#15: Kait Nichols','#17: Catrina Garvey','#21: Corrynn Parker','#22: Lauryn Meek','#23: Ailani Curvan','#24: Jamilah Christian','#25: Jessica Keripe']
 col1,col2,col3 = st.columns([1,1,1])
 col1.subheader('TMU')
 # Home team selection
 home_team = [player for player in homeplayers if col1.checkbox(f"{player}")]
 
 # Player selection
-awayplayers = ["Player 1", "Player 2", "Player 3", "Player 4", "Player 5",'Player6','Player7','Player8','Player9','Player10','Player11','Player12','Player13','Player14']
+awayplayers = ["#1: Phillips", "#2: Sanzo", "#4: Ekelof", "#6: Hickman", "#7: Short", "#8: Ekstrom", "#10: Jenkins", "#11: Long", "#12: McLaughlin", "#14: Murray", "#15: Green", "#21: Clifford", "#23: Cote", "#24: Ledevehat", "#31 Chapman"]
 col2.subheader('Away')
 # Home team selection
 away_team = [player for player in awayplayers if col2.checkbox(f"{player}",key=player)]
