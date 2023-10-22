@@ -5,6 +5,8 @@ import numpy as np
 import csv
 import os.path
 import os
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
 
 st.markdown("<h1 style='text-align: center; color: black;'>Plus-Minus Tracker</h1>", unsafe_allow_html=True)
 top_col1,top_col2,top_col3,top_col4 = st.columns([1,1,1,1])
@@ -16,7 +18,7 @@ col1.subheader('TMU')
 home_team = [player for player in homeplayers if col1.checkbox(f"{player}")]
 
 # Player selection
-awayplayers = ["#1: Phillips", "#2: Sanzo", "#4: Ekelof", "#6: Hickman", "#7: Short", "#8: Ekstrom", "#10: Jenkins", "#11: Long", "#12: McLaughlin", "#14: Murray", "#15: Green", "#21: Clifford", "#23: Cote", "#24: Ledevehat", "#31 Chapman"]
+awayplayers = ["#0: Picton", "#1: Flindall", "#2: Reider", "#3: Ahlstrom", "#4: DeMong", "#5: Grassick", "#6: Lewans", "#7: Dodig", "#9: Maelde", "#10: Wiebe", "#11: Fall", "#12: Reding", "#13: Zilinska", "#15: Primeau"]
 col2.subheader('Away')
 # Home team selection
 away_team = [player for player in awayplayers if col2.checkbox(f"{player}",key=player)]
@@ -105,6 +107,38 @@ st.text('')
 st.text('')
 st.text('')
 st.text('')
+
+visibility_download = False
+if st.checkbox('Allow Download'):
+    visibility_download = True
+
+if visibility_download:
+    csv = points_data_home.to_csv(index=False)
+    csv2 = points_data_away.to_csv(index=False)
+    lineup_vals = pd.DataFrame(pd.read_csv('lineup_plusminus.csv',header=None,names=["Date", "P1", "P2", "P3","P4","P5","Points"]))
+    lineup_vals = lineup_vals[lineup_vals['Date']==str(date.today())]
+    lineup_vals = lineup_vals.groupby(['P1','P2','P3','P4','P5'])['Points'].sum()
+    lineup_vals = lineup_vals.sort_values(ascending=False)
+    csv3 = lineup_vals.to_csv(index=True)
+    st.download_button(
+        label="Download Home +/-",
+        data=csv,
+        key="download-csv.csv",
+        on_click=None,
+    )
+    st.download_button(
+        label="Download Away +/-",
+        data=csv2,
+        key="download-csv1.csv",
+        on_click=None,
+    )
+    st.download_button(
+        label="Download Lineup +/-",
+        data=csv3,
+        key="download-csv2.csv",
+        on_click=None,
+    )
+
 visibility = False
 if st.checkbox('Allow Reset'):
     visibility = True
