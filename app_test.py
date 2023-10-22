@@ -5,8 +5,6 @@ import numpy as np
 import csv
 import os.path
 import os
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
 
 st.markdown("<h1 style='text-align: center; color: black;'>Plus-Minus Tracker</h1>", unsafe_allow_html=True)
 top_col1,top_col2,top_col3,top_col4 = st.columns([1,1,1,1])
