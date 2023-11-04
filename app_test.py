@@ -7,7 +7,8 @@ import os.path
 import os
 
 st.markdown("<h1 style='text-align: center; color: black;'>Plus-Minus Tracker</h1>", unsafe_allow_html=True)
-top_col1,top_col2,top_col3,top_col4 = st.columns([1,1,1,1])
+top_col2,top_col3,top_col4,top_col5 = st.columns([1,1,1,1])
+
 # Player selection
 homeplayers = ["#3: Hailey Franco-Deryck", "#6: Haley Fedick", "#8: Zoe Idahosa", "#9: Sarai Bailey", "#10: Jayme Foreman", "#12: Hannah Watson",'#13: Alex Pino','#14: Kaillie Hall','#15: Kait Nichols','#17: Catrina Garvey','#21: Corrynn Parker','#22: Lauryn Meek','#23: Ailani Curvan','#24: Jamilah Christian','#25: Jessica Keripe']
 col1,col2,col3 = st.columns([1,1,1])
@@ -24,6 +25,7 @@ away_team = [player for player in awayplayers if col2.checkbox(f"{player}",key=p
 if os.path.isfile(str(date.today())+'TMU_plusminus.csv'):
     points_data_home = pd.read_csv(str(date.today())+'TMU_plusminus.csv')
     points_data_away = pd.read_csv(str(date.today())+'Away_plusminus.csv')
+    possession_data_home = pd.read_csv(str(date.today())+'TMU_possession_counts.csv')
     st.session_state.home_points = st.session_state.get('home_points', {
         player: points_data_home.loc[points_data_home['Player'] == player, 'Points'].iloc[0]
         if player in points_data_home['Player'].values
@@ -36,9 +38,16 @@ if os.path.isfile(str(date.today())+'TMU_plusminus.csv'):
         else 0  # Use a default value (e.g., 1) if the player is not found
         for player in awayplayers
     })
+    st.session_state.home_possessions = st.session_state.get('home_possessions', {
+        player: possession_data_home.loc[possession_data_home['Player'] == player, 'Possessions'].iloc[0]
+        if player in possession_data_home['Player'].values
+        else 0  # Use a default value (e.g., 1) if the player is not found
+        for player in homeplayers
+    })
 else:
     st.session_state.home_points = st.session_state.get('home_points', {player: 0 for player in homeplayers})
     st.session_state.away_points = st.session_state.get('away_points', {player: 0 for player in awayplayers})
+    st.session_state.home_possessions = st.session_state.get('home_possessions', {player: 0 for player in homeplayers})
 
 if len(home_team)==5 and len(away_team)==5:
     if top_col2.button('Add Point TMU'):
@@ -73,15 +82,29 @@ if len(home_team)==5 and len(away_team)==5:
         home_df.to_csv(str(date.today())+'TMU_plusminus.csv', index=False)
         away_df = pd.DataFrame(list(st.session_state['away_points'].items()), columns=['Player', 'Points'])
         away_df.to_csv(str(date.today())+'Away_plusminus.csv', index=False)
+    
+    if top_col4.button('Add Possession TMU'):
+        #st.session_state.away_points = st.session_state.get('away_points', {player: 0 for player in away_team})  # Retrieve session state
+        for player in home_team:
+            st.session_state.home_possessions[player] += 1
+
+        home_possession_df = pd.DataFrame(list(st.session_state['home_possessions'].items()), columns=['Player', 'Possessions'])
+        home_possession_df.to_csv(str(date.today())+'TMU_possession_counts.csv', index=False)
+
+    home_possession_df = pd.DataFrame(list(st.session_state['home_possessions'].items()), columns=['Player', 'Possessions'])
+    top_col5.caption('Possessions: '+str(int(np.nansum(home_possession_df.values[:,1])/5)))
+
 else:
     top_col2.button('Invalid Player #',key=0)
     top_col3.button('Invalid Player #',key=1)
-
+    top_col4.button('Invalid Player #',key=2)
+    home_possession_df = pd.DataFrame(list(st.session_state['home_possessions'].items()), columns=['Player', 'Possessions'])
+    top_col5.caption('Possessions: '+str(int(np.nansum(home_possession_df.values[:,1])/5)))
 
 with col3:
     table_switch = st.radio("Team",('TMU','Away'),horizontal=True)
 
-if table_switch=='TMU':
+if table_switch == 'TMU':
     col3.subheader('TMU')
     if 'home_points' in st.session_state:
         height = int(35.2*(len(homeplayers)+1))
@@ -137,12 +160,25 @@ if visibility_download:
         on_click=None,
     )
 
-visibility = False
+visibility_reset = False
 if st.checkbox('Allow Reset'):
-    visibility = True
+    visibility_reset = True
 
-if visibility == True:
+if visibility_reset:
     if st.button('Reset Values'):
-        os.remove('lineup_plusminus.csv')
-        os.remove(str(date.today())+'TMU_plusminus.csv')
-        os.remove(str(date.today())+'Away_plusminus.csv')
+        try:
+            os.remove('lineup_plusminus.csv')
+        except:
+            pass
+        try:
+            os.remove(str(date.today())+'TMU_plusminus.csv')
+        except:
+            pass
+        try:
+            os.remove(str(date.today())+'Away_plusminus.csv')
+        except:
+            pass
+        try:
+            os.remove(str(date.today())+'TMU_possessions.csv')
+        except:
+            pass
