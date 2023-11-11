@@ -22,7 +22,7 @@ col2.subheader('Away')
 # Home team selection
 away_team = [player for player in awayplayers if col2.checkbox(f"{player}",key=player)]
 ##existing file
-if os.path.isfile(str(date.today())+'TMU_plusminus.csv'):
+if os.path.isfile(str(date.today())+'TMU_plusminus.csv') and os.path.isfile(str(date.today())+'TMU_possession_counts.csv'):
     points_data_home = pd.read_csv(str(date.today())+'TMU_plusminus.csv')
     points_data_away = pd.read_csv(str(date.today())+'Away_plusminus.csv')
     possession_data_home = pd.read_csv(str(date.today())+'TMU_possession_counts.csv')
