@@ -17,7 +17,7 @@ col1.subheader('TMU')
 home_team = [player for player in homeplayers if col1.checkbox(f"{player}")]
 
 # Player selection
-awayplayers = ["#1: Kasonga", "#3: Vukovic", "#4: Bazzi", "#5: Vukovic", "#6: Keltos", "#7: Fiorucci", "#8: Vlatkovic", "#9: Campbell", "#10: Umba", "#11: Adams", "#12: Weinert", "#13: Addy", "#14: Addy", "#21: MacInnis", "#22: Vercesi", "#23: Akinnusi"]
+awayplayers = ["#0: Waleszczak", "#1: Williams", "#2: Hafez", "#3: Comsa", "#4: Graham", "#5: Caesar", "#6: Ougrinov", "#7: Joseph", "#10: Charles", "#11: Hamid", "#12: Johnson", "#13: Nero", "#15: Church", "#18: Jaglall", "#22: Reed", "#23: Sawler", "#24: Djemba"]
 col2.subheader('Away')
 # Home team selection
 away_team = [player for player in awayplayers if col2.checkbox(f"{player}",key=player)]
