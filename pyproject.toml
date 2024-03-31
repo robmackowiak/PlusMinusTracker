@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "plusminus-tracker"
+version = "0.1.0"
+description = "This package houses an interactive streamlit app allowing a user to, in real-time, track the plus-minus of individual pbasketball players and lineups."
+authors = ["Rob Mackowiak <robert.mackowiak@mlse.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+streamlit = "^1.32.2"
+pandas = "^2.2.1"
+numpy = "^1.26.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
