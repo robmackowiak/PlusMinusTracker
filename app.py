@@ -26,6 +26,8 @@ def get_rosters(team_1_url, team_2_url):
 
 if "data" not in st.session_state:
     st.session_state["data"] = pd.DataFrame({"team": [], "name": [], "val": []})
+    st.session_state["team1_upload"] = []
+    st.session_state["team2_upload"] = []
 
 if "data_lineup" not in st.session_state:
     st.session_state["data_lineup"] = pd.DataFrame(
@@ -41,31 +43,31 @@ if "data_lineup" not in st.session_state:
     )
 
 with st.sidebar:
-    with st.expander("Sport Reference Team Links"):
+    with st.expander(f"Upload Rosters"):
         team1_col, team2_col = st.columns(2)
-        st.session_state["team1_url"] = team1_col.text_input(
-            "Team 1"
+        st.session_state["team1_upload"] = team1_col.file_uploader(
+            "Team 1", type=["csv"]
         )
 
-        st.session_state["team2_url"] = team2_col.text_input(
-            "Team 2"
+        st.session_state["team2_upload"] = team2_col.file_uploader(
+            "Team 2", type=["csv"]
         )
-        
-        if len(st.session_state["team1_url"]) > 0 and len(st.session_state["team2_url"]) > 0:
-            st.session_state["team1_df"], st.session_state["team2_df"] = get_rosters(st.session_state["team1_url"], st.session_state["team2_url"])
+
+        if st.session_state["team1_upload"] is not None and st.session_state["team2_upload"] is not None:
+            team1 = st.session_state["team1_upload"].name.split('.')[0]
+            team2 = st.session_state["team2_upload"].name.split('.')[0]
+
+            team1_df = pd.read_csv(st.session_state["team1_upload"])
+            team2_df = pd.read_csv(st.session_state["team2_upload"])
+            
             st.caption("Data Uploaded Succesfully ✅")
 
-            team1 = st.session_state["team1_url"].split("/")[5].title()
-            team2 = st.session_state["team2_url"].split("/")[5].title()
-
-            team1_df = st.session_state["team1_df"]
-            team2_df = st.session_state["team2_df"]
 
     team1_players_col, team2_players_col = st.columns(2)
 
-    if len(st.session_state["team1_url"]) > 0 and len(st.session_state["team2_url"]) > 0:
+    if st.session_state["team1_upload"] is not None and st.session_state["team2_upload"] is not None:
         with team1_players_col:
-            st.caption(team1.replace('-', ' '))
+            st.caption(team1.replace('_', ' ').title())
             team1_active = [
                 team1_df["Player"][i]
                 for i in range(len(team1_df["Player"]))
@@ -73,7 +75,7 @@ with st.sidebar:
             ]
 
         with team2_players_col:
-            st.caption(team2.replace('-', ' '))
+            st.caption(team2.replace('_', ' ').title())
             team2_active = [
                 team2_df["Player"][i]
                 for i in range(len(team2_df["Player"]))
@@ -86,19 +88,19 @@ with st.sidebar:
         if st.button('Reset App', use_container_width=True, type='primary'):
             streamlit_js_eval(js_expressions="parent.window.location.reload()")
 
-if "team1_df" not in st.session_state or "team2_df" not in st.session_state:
+if st.session_state["team1_upload"] is None or st.session_state["team2_upload"] is None:
     st.caption(
         "Please use sidebar to initialize two team rosters to start plus-minus tracking."
     )
 else:
     _, logo1_col, _, _, logo2_col, _ = st.columns([1, 1, 0.5, 0.5, 1, 1])
     try:
-        logo1_col.image(f"./plusminus/assets/logo/{team1}.jpg", use_column_width=True)
+        logo1_col.image(f"./plusminus/assets/logo/{team1}.png", use_column_width=True)
     except:
         logo1_col.header(team1.replace('-', ''))
     
     try:
-        logo2_col.image(f"./plusminus/assets/logo/{team2}.jpg", use_column_width=True)
+        logo2_col.image(f"./plusminus/assets/logo/{team2}.png", use_column_width=True)
     except:
         logo2_col.header(team2.replace('-', ''))
 
@@ -193,8 +195,8 @@ else:
         _, player_col1_title, _, _, player_col2_title, _ = st.columns(
             [1.5, 1, 0.65, 0.5, 1, 1]
         )
-        player_col1_title.caption(team1.replace('-', ' '))
-        player_col2_title.caption(team2.replace('-', ' '))
+        player_col1_title.caption(team1.replace('_', ' ').title())
+        player_col2_title.caption(team2.replace('_', ' ').title())
 
         _, player_col1, player_col1_val, player_col2, player_col2_val, _ = st.columns(
             [1.2, 1.8, 1.5, 1.8, 1.5, 0.2]
@@ -233,7 +235,7 @@ else:
             player_col2_val.write(f"{val}")
 
     with lineup:
-        team1_lineup, team2_lineup = st.tabs([f"{team1.replace('-','')}", f"{team2.replace('-', ' ')}"])
+        team1_lineup, team2_lineup = st.tabs([f"{team1.replace('_','').title()}", f"{team2.replace('_', ' ').title()}"])
 
         with team1_lineup:
             st.dataframe(
