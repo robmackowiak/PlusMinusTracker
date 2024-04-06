@@ -35,11 +35,19 @@ Welcome to the PlusMinus Tracker, a Streamlit web application designed to help y
 |Jada Gyamfi    |23 |SO   |F  |01-Jun|1.4 Pts, 0.6 Reb, 0.2 Ast |
 |Kennise Johnson|13 |FR   |G  |04-May|0.5 Pts, 0.3 Reb, 0.2 Ast |
 
+If running the app from a local version of this package, you can add in a collection of rosters and team logos into the ```assets``` folder for quick access.
+
 Once the rosters are added for both teams of interest, begin tracking your PlusMinus statistics by selecting five players on both teams, and then as the game progressed press on the ```+1``` button a set number of times for each respective team that scores. 
 
 As you do this the ```Player``` and ```Lineup``` tabs will automatically populate with PlusMinus statistical data. You can explore these pages to determine the on-court efficiency of individual players and of whole lineups.
 
+**See below for how to initialize your rosters and use the PlusMinus tracking**:
 
+https://github.com/robmackowiak/plusminus-tracker/assets/129769902/50f95491-64fb-4357-ab85-20b37bd8cd45
+
+Once you are finished with your collection, you are also able to export all the player and lineup data by pressing either the ```Download Player Data``` or ```Download Lineup Data``` buttons.
+
+If needing to restart the app at any point, press the ```Reset App``` button.
 
 ## Installation
 
