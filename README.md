@@ -1,4 +1,4 @@
-# PlusMinus Tracker
+# PlusMinus Tracker 🏀
 
 Welcome to the PlusMinus Tracker, a Streamlit web application designed to help you track live plus-minus player and lineup statistics during basketball games for both teams. This app provides real-time insights into the impact of players and lineups on the game while they are on the court. I developed this app as a Performance Analyst for a basketball team and used it live in-game on the bench to help our coaching staff make better decisions about their players and their rotations.
 
