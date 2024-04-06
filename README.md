@@ -17,7 +17,7 @@ Welcome to the PlusMinus Tracker, a Streamlit web application designed to help y
 
    Begin by entering the rosters of the teams you are looking to track as .csv files.
 
-   Sample .csv files exist in the ```plusminus/rosters/``` folder for the 2023-2024 Iowa and South Carolina WBB teams. The roster .csv format is based on the exports from [Sports Reference](https://www.sports-reference.com/cbb/schools/iowa/women/2024.html#roster), but only really require two columns, ```Player``` and ```#``` for player name and player number. To create your own version of this .csv roster, navigate to a team roster on https://www.sports-reference.com and press "Get as Excel Workbook" or recreate this template in excel and fill in te roster with any players you like. Here is the Iowa roster used in the example file:
+   Sample .csv files exist in the ```plusminus/rosters/``` folder for the 2023-2024 Iowa and South Carolina WBB teams. The roster .csv format is based on the exports from [Sports Reference](https://www.sports-reference.com/cbb/schools/iowa/women/2024.html#roster), but only really require two columns, ```Player``` and ```#``` for player name and player number. To create your own version of this .csv roster, navigate to a team roster from Sports Reference and press "Get as Excel Workbook" or recreate this template in excel and fill in te roster with any players you like. Here is the Iowa roster used in the example file:
 
 |Player         |#  |Class|Pos|Height|Summary                   |
 |---------------|---|-----|---|------|--------------------------|
