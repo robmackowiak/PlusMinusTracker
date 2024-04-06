@@ -17,23 +17,23 @@ Welcome to the PlusMinus Tracker, a Streamlit web application designed to help y
 
    Begin by entering the rosters of the teams you are looking to track as .csv files.
 
-   Sample .csv files exist in the ```plusminus/rosters/``` folder for the 2023-2024 Iowa and South Carolina WBB teams. The roster .csv format is based on the exports from [Sports Reference](https://www.sports-reference.com/cbb/schools/iowa/women/2024.html#roster), but only really require two columns, ```Player``` and ```#``` for player name and player number. To create your own version of this .csv roster, navigate to a team roster from Sports Reference and press "Get as Excel Workbook" or recreate this template in excel and fill in te roster with any players you like. Here is the Iowa roster used in the example file:
+   Sample .csv files exist in the ```plusminus/rosters/``` folder for the 2023-2024 Iowa and South Carolina WBB teams. The roster .csv format is based on the exports from [Sports Reference](https://www.sports-reference.com/cbb/schools/iowa/women/2024.html#roster), but only really require two columns, ```Player``` and ```#``` for player name and player number. To create your own version of this .csv roster, navigate to a team roster from Sports Reference and press "Get as Excel Workbook" or recreate this template in excel and fill in te roster with any players you like. Here is the Iowa roster used in the example file but you can make any roster file and it will work if following this format:
 
-|Player         |#  |Class|Pos|Height|Summary                   |
-|---------------|---|-----|---|------|--------------------------|
-|Caitlin Clark  |22 |SR   |G  |6-0   |31.7 Pts, 7.3 Reb, 9.0 Ast|
-|Kate Martin    |20 |SR   |G  |6-0   |13.0 Pts, 6.8 Reb, 2.3 Ast|
-|Hannah Stuelke |45 |SO   |F  |02-Jun|14.1 Pts, 6.7 Reb, 1.2 Ast|
-|Sydney Affolter|3  |JR   |G  |11-May|8.3 Pts, 6.5 Reb, 2.3 Ast |
-|Gabbie Marshall|24 |SR   |G  |09-May|6.1 Pts, 1.2 Reb, 1.6 Ast |
-|Molly Davis    |1  |SR   |G  |07-May|6.1 Pts, 2.6 Reb, 3.1 Ast |
-|Addison O'Grady|44 |JR   |F-C|04-Jun|4.0 Pts, 1.9 Reb, 0.4 Ast |
-|Sharon Goodman |40 |JR   |C  |03-Jun|4.5 Pts, 3.0 Reb, 0.3 Ast |
-|Taylor McCabe  |2  |SO   |G  |09-May|3.4 Pts, 0.7 Reb, 0.7 Ast |
-|Kylie Feuerbach|4  |SR   |G  |6-0   |2.7 Pts, 1.3 Reb, 0.9 Ast |
-|AJ Ediger      |34 |JR   |F  |02-Jun|1.8 Pts, 1.3 Reb, 0.2 Ast |
-|Jada Gyamfi    |23 |SO   |F  |01-Jun|1.4 Pts, 0.6 Reb, 0.2 Ast |
-|Kennise Johnson|13 |FR   |G  |04-May|0.5 Pts, 0.3 Reb, 0.2 Ast |
+|Player         |#  |
+|---------------|---|
+|Caitlin Clark  |22 |
+|Kate Martin    |20 |
+|Hannah Stuelke |45 |
+|Sydney Affolter|3  |
+|Gabbie Marshall|24 |
+|Molly Davis    |1  |
+|Addison O'Grady|44 |
+|Sharon Goodman |40 |
+|Taylor McCabe  |2  |
+|Kylie Feuerbach|4  |
+|AJ Ediger      |34 |
+|Jada Gyamfi    |23 |
+|Kennise Johnson|13 |
 
 If running the app from a local version of this package, you can add in a collection of rosters and team logos into the ```assets``` folder for quick access.
 
