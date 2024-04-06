@@ -49,32 +49,26 @@ Once you are finished with your collection, you are also able to export all the 
 
 If needing to restart the app at any point, press the ```Reset App``` button.
 
-## Installation
+## Local Installation
 
-To install and run the Live PlusMinus Tracker locally, follow these steps:
+To install and run the PlusMinus Tracker locally, follow these steps:
 
 1. Clone this repository:
 
     ```bash
-    git clone https://github.com/your-username/live-plus-minus-tracker.git
+    git clone https://github.com/robmackowiak/plusminus-tracker
     ```
 
 2. Navigate to the project directory:
 
     ```bash
-    cd live-plus-minus-tracker
+    cd plusminus-tracker
     ```
 
 3. Install the required dependencies:
 
     ```bash
     pip install -r requirements.txt
-    ```
-
-4. Run the app:
-
-    ```bash
-    streamlit run live_plus_minus_tracker.py
     ```
 
 ## Contribution
