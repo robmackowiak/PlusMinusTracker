@@ -32,20 +32,31 @@ if "data_lineup" not in st.session_state:
     )
 
 with st.sidebar:
+
     with st.expander(f"Upload Rosters"):
-        team1_col, team2_col = st.columns(2)
-        st.session_state["team1_upload"] = team1_col.file_uploader("Team 1", type=["csv"])
 
-        st.session_state["team2_upload"] = team2_col.file_uploader("Team 2", type=["csv"])
+        demo_mode_bool = st.toggle("Demo Mode", key="demo_mode", value=True, help="Demo usage automatically imports the 2023-2024 Iowa and Sourth Carolina NCAA WBB team rosters to test out the PlusMinus Tracker. Turn off demo mode to upload your own rosters.")
 
-        if st.session_state["team1_upload"] is not None and st.session_state["team2_upload"] is not None:
-            team1 = st.session_state["team1_upload"].name.split(".")[0]
-            team2 = st.session_state["team2_upload"].name.split(".")[0]
+        if demo_mode_bool:
+            team1 = "iowa"
+            team2 = "south_carolina"
+            team1_df = pd.read_csv("./plusminus/rosters/iowa.csv")
+            team2_df = pd.read_csv("./plusminus/rosters/south_carolina.csv")
 
-            team1_df = pd.read_csv(st.session_state["team1_upload"])
-            team2_df = pd.read_csv(st.session_state["team2_upload"])
+        else:
+            team1_col, team2_col = st.columns(2)
+            st.session_state["team1_upload"] = team1_col.file_uploader("Team 1", type=["csv"])
 
-            st.caption("Data Uploaded Succesfully ✅")
+            st.session_state["team2_upload"] = team2_col.file_uploader("Team 2", type=["csv"])
+
+            if st.session_state["team1_upload"] is not None and st.session_state["team2_upload"] is not None:
+                team1 = st.session_state["team1_upload"].name.split(".")[0]
+                team2 = st.session_state["team2_upload"].name.split(".")[0]
+
+                team1_df = pd.read_csv(st.session_state["team1_upload"])
+                team2_df = pd.read_csv(st.session_state["team2_upload"])
+
+                st.caption("Data Uploaded Succesfully ✅")
 
     team1_players_col, team2_players_col = st.columns(2)
 
@@ -88,7 +99,9 @@ else:
     ) = st.columns([1, 1, 0.5, 0.5, 1, 1])
 
     if button_team1.button(f"+1", use_container_width=True):
-        if len(team1_active) == 5:
+        if len(team1_active) != 5 or len(team2_active) != 5:
+            st.error("Please select 5 players from each team to track plus-minus.", icon='🚨')
+        else:
             for player in team1_active:
                 st.session_state["data"].loc[len(st.session_state["data"].index)] = [
                     team1,
@@ -122,7 +135,9 @@ else:
             ]
 
     if button_team2.button(f"+1", use_container_width=True, key=1):
-        if len(team1_active) == 5:
+        if len(team1_active) != 5 or len(team2_active) != 5:
+            st.error("Please select 5 players from each team to track plus-minus.", icon='🚨')
+        else:
             for player in team2_active:
                 st.session_state["data"].loc[len(st.session_state["data"].index)] = [
                     team2,
